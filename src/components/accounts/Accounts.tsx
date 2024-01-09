@@ -2,17 +2,20 @@ import React, {useEffect, useState} from 'react';
 // Components
 import AddButton from '../common/AddButton.tsx';
 import Loading from '../common/Loading.tsx';
+import Row from '../common/Row.tsx';
 // Utils
 import { formatCurrency, getAccountData } from '../../utils.ts';
 // Constants
-import type { AccountType } from '../../types.ts';
+import type { Account, Transaction } from '../../types.ts';
 // CSS
 import './style.css';
 
 const Accounts = () => {
+  const [accounts, setAccounts] = useState<Array<Account>>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showTransactions, setShowTransactions] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
-  const [accounts, setAccounts] = useState<Array<AccountType>>([]);
+  const [transactions, setTransactions] = useState<Array<Transaction>>([]);
 
   // Retrieve data on mount
   useEffect(() => {
@@ -27,9 +30,7 @@ const Accounts = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <Loading/>
-    );
+    return <Loading/>;
   }
 
   return (
@@ -47,22 +48,16 @@ const Accounts = () => {
       <div className="accounts-list">
         {accounts.map(account => {
           return (
-            <div className="accounts-row">
-              <div className="accounts-row-main">
-                <img className="accounts-row-image" src={account.image_url}/>
-
-                <div className="accounts-row-name-wrapper">
-                  <div className="accounts-row-name-primary">
-                    {account.name}
-                  </div>
-                  <div className="accounts-row-name-secondary">
-                    {account.official_name}
-                  </div>
-                </div>
-              </div>
-
-              <div className="accounts-row-total">{formatCurrency(account.balances?.current || 0)}</div>
-            </div>
+            <Row
+              amount={account.balances.current || 0}
+              avatar={account.image_url}
+              onClick={() => {
+                setTransactions(account.transactions);
+                setShowTransactions(true);
+              }}
+              primaryText={account.name}
+              secondaryText={account.official_name}
+            />
           );
         })}
       </div>
