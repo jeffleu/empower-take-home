@@ -37,6 +37,7 @@ const Transactions = ({account, onClose}: PropsType) => {
               <Row
                 amount={transaction.amount}
                 icon={<TransactionIcon category={transaction.category}/>}
+                key={transaction.id}
                 primaryText={transaction.merchant_name}
                 secondaryText={`${formatDate(transaction.date)}${transaction.pending ? ' • Pending' : ''}`}
               />

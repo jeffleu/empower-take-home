@@ -1,3 +1,7 @@
+.menu-item {
+  font-size: 20px;
+}
+
 .row {
   cursor: pointer;
   display: flex;

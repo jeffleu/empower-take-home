@@ -18,6 +18,17 @@ const Accounts = () => {
   const [total, setTotal] = useState<number>(0);
   const [currentAccount, setCurrentAccount] = useState<Account | null>(null);
 
+  const menuItems = [
+    {
+      menuItemText: 'Add account',
+      onClick: () => {}
+    },
+    {
+      menuItemText: 'Remove account',
+      onClick: () => {}
+    }
+  ];
+
   // Retrieve data on mount
   useEffect(() => {
     setIsLoading(true);
@@ -49,7 +60,7 @@ const Accounts = () => {
           All accounts
         </div>
 
-        <AddButton/>
+        <AddButton menuItems={menuItems}/>
       </div>
 
       <div className="accounts-total">Total: {formatCurrency(total)}</div>
@@ -60,6 +71,7 @@ const Accounts = () => {
             <Row
               amount={account.balances.current || 0}
               avatar={account.image_url}
+              key={account.account_id}
               onClick={() => {
                 setCurrentAccount(account);
                 setShowTransactions(true);

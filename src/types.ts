@@ -17,6 +17,7 @@ export type Transaction = {
   category: string;
   date: string;
   datetime: string;
+  id: string;
   iso_currency_code: string;
   merchant_name: string;
   name: string;
