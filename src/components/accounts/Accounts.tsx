@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import AddButton from '../common/AddButton.tsx';
 import Loading from '../common/Loading.tsx';
 import Row from '../common/Row.tsx';
+import Transactions from '../transactions/Transactions.tsx';
 // Utils
 import { formatCurrency, getAccountData } from '../../utils.ts';
 // Constants
@@ -15,7 +16,7 @@ const Accounts = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showTransactions, setShowTransactions] = useState<boolean>(false);
   const [total, setTotal] = useState<number>(0);
-  const [transactions, setTransactions] = useState<Array<Transaction>>([]);
+  const [currentAccount, setCurrentAccount] = useState<Account | null>(null);
 
   // Retrieve data on mount
   useEffect(() => {
@@ -33,10 +34,18 @@ const Accounts = () => {
     return <Loading/>;
   }
 
+  if (showTransactions && currentAccount) {
+    return (
+      <Transactions
+        onClose={() => {setShowTransactions(false)}}
+        account={currentAccount}
+      />);
+  }
+
   return (
     <div className="accounts-wrapper">
       <div className="accounts-header">
-        <div className="account-header-text">
+        <div className="accounts-header-text">
           All accounts
         </div>
 
@@ -52,7 +61,7 @@ const Accounts = () => {
               amount={account.balances.current || 0}
               avatar={account.image_url}
               onClick={() => {
-                setTransactions(account.transactions);
+                setCurrentAccount(account);
                 setShowTransactions(true);
               }}
               primaryText={account.name}

@@ -1,0 +1,35 @@
+.row {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0;
+}
+
+.row-image {
+  border-radius: 50%;
+  height: 50px;
+  margin-right: 20px;
+  width: 50px;
+}
+
+.row-main {
+  display: flex;
+}
+
+.row-name-primary {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.row-name-secondary {
+  color: darkgray;
+}
+
+.row-name-wrapper {
+  text-align: left;
+}
+
+.row-total {
+  align-items: center;
+  display: flex;
+}

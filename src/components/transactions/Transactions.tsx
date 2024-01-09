@@ -1,48 +1,53 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+// 3rd party libraries
+import { Close } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 // Components
-import AddButton from '../common/AddButton.tsx';
-import Loading from '../common/Loading.tsx';
+import Row from '../common/Row.tsx';
+import TransactionIcon from './TransactionIcon.tsx';
 // Utils
-import { formatCurrency, getAccountData } from '../../utils.ts';
-// Constants
-import type { AccountType } from '../../types.ts';
-// CSS
-import './style.css';
+import { formatCurrency, formatDate } from '../../utils.ts';
+// Types
+import type { Account, Transaction } from '../../types.ts';
 
-const Accounts = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [transactions, setTransactions] = useState();
+type PropsType = {
+  account: Account;
+  onClose: () => void;
+}
 
-  // Retrieve data on mount
-  useEffect(() => {
-    setIsLoading(true);
-    // setTimeout used here to mock API call
-    setTimeout(() => {
-      const {transactions} = getTransactionsData();
-      // setTransactions();
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Loading/>
-    );
-  }
-
+const Transactions = ({account, onClose}: PropsType) => {
   return (
-    <div className="accounts-wrapper">
-      <div className="accounts-header">
-        <div className="account-header-text">
+    <div className="transactions-wrapper">
+      <div className="transactions-header">
+        <div className="transactions-header-text">
           Transactions
         </div>
+
+        <IconButton aria-label="close" onClick={onClose} size="large">
+          <Close fontSize="large"/>
+        </IconButton>
       </div>
 
+      <div className="transaction-account-name">{account.official_name}</div>
+
       <div className="transaction-list">
-        
+        {account.transactions.length ? (
+          account.transactions.map(transaction => {
+            return (
+              <Row
+                amount={transaction.amount}
+                icon={<TransactionIcon category={transaction.category}/>}
+                primaryText={transaction.merchant_name}
+                secondaryText={`${formatDate(transaction.date)}${transaction.pending ? ' • Pending' : ''}`}
+              />
+            );
+          })
+        ) : (
+          <div>No transaction history.</div>
+        )}
       </div>
     </div>  
   );
 };
 
-export default Accounts;
+export default Transactions;

@@ -1,11 +1,14 @@
 import React from 'react';
 // Utils
 import { formatCurrency } from '../../utils.ts';
+// CSS
+import './style.css';
 
 type PropsType = {
   amount: number;
-  avatar: string | null;
-  onClick: () => void;
+  avatar?: string;
+  icon?: React.ReactNode;
+  onClick?: () => void;
   primaryText: string;
   secondaryText: string;
 };
@@ -13,26 +16,29 @@ type PropsType = {
 const Row = ({
   amount,
   avatar,
+  icon,
   onClick,
   primaryText,
   secondaryText,
 }: PropsType) => {
   return (
-    <div className="accounts-row" onClick={onClick}>
-      <div className="accounts-row-main">
-        <img className="accounts-row-image" src={avatar || ''}/>
+    <div className="row" onClick={onClick}>
+      <div className="row-main">
+        {icon ? icon : (
+          <img className="row-image" src={avatar}/>
+        )}
 
-        <div className="accounts-row-name-wrapper">
-          <div className="accounts-row-name-primary">
+        <div className="row-name-wrapper">
+          <div className="row-name-primary">
             {primaryText}
           </div>
-          <div className="accounts-row-name-secondary">
+          <div className="row-name-secondary">
             {secondaryText}
           </div>
         </div>
       </div>
 
-      <div className="accounts-row-total">{formatCurrency(amount)}</div>
+      <div className="row-total">{formatCurrency(amount)}</div>
     </div>
   );
 };

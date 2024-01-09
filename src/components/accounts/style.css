@@ -1,48 +1,17 @@
-.accounts-header {
+.accounts-header,.transactions-header {
   display: flex;
   font-size: 28px;
   font-weight: 600;
   justify-content: space-between;
 }
 
-.accounts-list {
-  margin-top: 60px;
-}
-
-.accounts-row {
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  margin: 32px 0;
-}
-
-.accounts-row-image {
-  border-radius: 50%;
-  height: 50px;
-  margin-right: 20px;
-  width: 50px;
-}
-
-.accounts-row-main {
-  display: flex;
-}
-
-.accounts-row-name-primary {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.accounts-row-name-secondary {
-  color: darkgray;
-}
-
-.accounts-row-name-wrapper {
-  text-align: left;
-}
-
-.accounts-row-total {
+.accounts-header-text,.transactions-header-text {
   align-items: center;
   display: flex;
+}
+
+.accounts-list,.transactions-list {
+  margin-top: 60px;
 }
 
 .accounts-total {
