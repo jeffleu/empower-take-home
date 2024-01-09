@@ -1,0 +1,25 @@
+.progress-bar {
+  background-color: lightgray !important;
+}
+
+.trackers-header {
+  display: flex;
+  font-size: 28px;
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.trackers-header-text {
+  align-items: center;
+  display: flex;
+}
+
+.trackers-list {
+  margin-top: 60px;
+}
+
+.trackers-total {
+  color: darkgray;
+  display: flex;
+  justify-content: flex-start;
+}

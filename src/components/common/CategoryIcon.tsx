@@ -4,6 +4,7 @@ import {
   GamepadOutlined,
   MonetizationOnOutlined,
   RestaurantOutlined,
+  SchoolOutlined,
   ShoppingBagOutlined,
   ShoppingCartOutlined
 } from '@mui/icons-material';
@@ -14,10 +15,13 @@ type PropsType = {
   category: string;
 };
 
-const TransactionIcon = ({category}: PropsType) => {
+const CategoryIcon = ({category}: PropsType) => {
   let Icon = MonetizationOnOutlined;
 
   switch(category) {
+    case 'education':
+      Icon = SchoolOutlined;
+      break;
     case 'games':
       Icon = GamepadOutlined;
       break;
@@ -35,10 +39,10 @@ const TransactionIcon = ({category}: PropsType) => {
   }
 
   return (
-    <div className={`transaction-icon icon-${category}`}>
+    <div className={`category-icon icon-${category}`}>
       <Icon fontSize='large'/>
     </div>
   );
 };
 
-export default TransactionIcon;
+export default CategoryIcon;

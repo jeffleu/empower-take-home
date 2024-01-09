@@ -6,6 +6,7 @@ import './style.css';
 
 type PropsType = {
   amount: number;
+  amountSecondary?: string;
   avatar?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
@@ -15,6 +16,7 @@ type PropsType = {
 
 const Row = ({
   amount,
+  amountSecondary,
   avatar,
   icon,
   onClick,
@@ -32,13 +34,19 @@ const Row = ({
           <div className="row-name-primary">
             {primaryText}
           </div>
-          <div className="row-name-secondary">
+          <div className="row-secondary">
             {secondaryText}
           </div>
         </div>
       </div>
 
-      <div className="row-total">{formatCurrency(amount)}</div>
+      <div className="row-total-wrapper">
+        <div className="row-total">{formatCurrency(amount)}</div>
+        {amountSecondary && (
+          <div className="row-secondary">{amountSecondary}</div>
+        )}
+      </div>
+
     </div>
   );
 };

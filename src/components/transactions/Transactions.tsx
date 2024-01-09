@@ -3,8 +3,8 @@ import React from 'react';
 import { Close } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 // Components
+import CategoryIcon from '../common/CategoryIcon.tsx';
 import Row from '../common/Row.tsx';
-import TransactionIcon from './TransactionIcon.tsx';
 // Utils
 import { formatCurrency, formatDate } from '../../utils.ts';
 // Types
@@ -36,7 +36,7 @@ const Transactions = ({account, onClose}: PropsType) => {
             return (
               <Row
                 amount={transaction.amount}
-                icon={<TransactionIcon category={transaction.category}/>}
+                icon={<CategoryIcon category={transaction.category}/>}
                 key={transaction.id}
                 primaryText={transaction.merchant_name}
                 secondaryText={`${formatDate(transaction.date)}${transaction.pending ? ' • Pending' : ''}`}

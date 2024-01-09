@@ -1,6 +1,7 @@
 import React from 'react';
 // Components
 import Accounts from './components/accounts/Accounts.tsx';
+import Trackers from './components/trackers/Trackers.tsx';
 // CSS
 import './App.css';
 
@@ -13,7 +14,8 @@ const App = () => {
       <div id="main">
         <div id="navigation"></div>
         <div id="main-content">
-          <Accounts/>
+          {/* <Accounts/> */}
+          <Trackers/>
         </div>
       </div>
     </div>
