@@ -1,0 +1,51 @@
+.accounts-header {
+  display: flex;
+  font-size: 28px;
+  font-weight: 600;
+  justify-content: space-between;
+}
+
+.accounts-list {
+  margin-top: 60px;
+}
+
+.accounts-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 32px 0;
+}
+
+.accounts-row-image {
+  border-radius: 50%;
+  height: 50px;
+  margin-right: 20px;
+  width: 50px;
+}
+
+.accounts-row-main {
+  display: flex;
+}
+
+.accounts-row-name-primary {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.accounts-row-name-secondary {
+  color: darkgray;
+}
+
+.accounts-row-name-wrapper {
+  text-align: left;
+}
+
+.accounts-row-total {
+  align-items: center;
+  display: flex;
+}
+
+.accounts-total {
+  color: darkgray;
+  display: flex;
+  justify-content: flex-start;
+}
