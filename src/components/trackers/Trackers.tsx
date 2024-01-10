@@ -15,19 +15,21 @@ import AddButton from '../common/AddButton.tsx';
 import CategoryIcon from '../common/CategoryIcon.tsx';
 import CreateTrackerForm from './CreateTrackerForm.tsx';
 import Loading from '../common/Loading.tsx';
+import RemoveTrackerForm from './RemoveTrackerForm.tsx';
 import Row from '../common/Row.tsx';
+import UpdateTrackerForm from './UpdateTrackerForm.tsx';
 // CSS
 import './style.css';
 // Utils
 import { getTrackerData, getValidCategoryMenuItems, sortTrackerData } from '../../utils.ts';
 // Types
 import { Tracker } from '../../types.ts';
-import RemoveTrackerForm from './RemoveTrackerForm.tsx';
 
 const Trackers = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openCreateForm, setOpenCreateForm] = useState<boolean>(false);
   const [openRemoveForm, setOpenRemoveForm] = useState<boolean>(false);
+  const [openUpdateForm, setOpenUpdateForm] = useState<boolean>(false);
   const [trackers, setTrackers] = useState<Array<Tracker>>([]);
   const categoryMenuItems = getValidCategoryMenuItems(trackers);
 
@@ -47,7 +49,7 @@ const Trackers = () => {
     menuItems.push(
       {
         menuItemText: 'Update',
-        onClick: () => { }
+        onClick: () => { setOpenUpdateForm(true) }
       },
       {
         menuItemText: 'Remove',
@@ -107,6 +109,15 @@ const Trackers = () => {
           setOpenCreateForm(false);
         }}
         open={openCreateForm}
+        setTrackers={setTrackers}
+        trackers={trackers}
+      />
+
+      <UpdateTrackerForm
+        onClose={() => {
+          setOpenUpdateForm(false);
+        }}
+        open={openUpdateForm}
         setTrackers={setTrackers}
         trackers={trackers}
       />

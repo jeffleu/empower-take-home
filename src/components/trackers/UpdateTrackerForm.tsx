@@ -27,26 +27,27 @@ type PropsType = {
   trackers: Array<Tracker>;
 }
 
-const CreateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) => {
+const UpdateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) => {
   const [category, setCategory] = useState<string>('');
-  const [limit, setLimit] = useState<number>(0);
+  const [limit, setLimit] = useState<number>();
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
-  const categoryMenuItems = getValidCategoryMenuItems(trackers);
+  const categoryMenuItems = trackers.map(tracker => tracker.category);
 
-  const onCreate = () => {
+  const onUpdate = () => {
     const hasErrors = !category || !limit;
     setShowErrors(hasErrors);
 
     if (hasErrors) return;
 
+    const filteredTrackers = trackers.filter(tracker => tracker.category !== category);
     const tracker = {
       amount: 0, // TODO: Update this with transaction data
       category,
       limit,
       percentage: 0, // TODO: Calculate percentage by taking amount divide by limit
     };
-    setTrackers(sortTrackerData([...trackers, tracker]));
+    setTrackers(sortTrackerData([...filteredTrackers, tracker]));
 
     // Reset form state
     setCategory('');
@@ -57,10 +58,10 @@ const CreateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create tracker</DialogTitle>
+      <DialogTitle>Update tracker</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ mb: '32px' }}>
-          Create a tracker to keep track of your spending for a particular category.
+          Select the category you would like to change the spending limit on.
         </DialogContentText>
 
         <FormControl fullWidth error={!category && showErrors}>
@@ -74,7 +75,10 @@ const CreateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
             value={category}
             label="Category"
             onChange={(event: SelectChangeEvent<HTMLInputElement>) => {
-              setCategory(event.target.value as string);
+              const selectedCategory = event.target.value as string;
+              const previousLimit = trackers.find(tracker => tracker.category === selectedCategory)?.limit ?? 0;
+              setCategory(selectedCategory);
+              setLimit(previousLimit);
             }}
             sx={{ mb: '12px', textTransform: 'capitalize' }}
           >
@@ -98,9 +102,9 @@ const CreateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
         {/* Max spending limit */}
         <TextField
           autoFocus
-          error={showErrors && limit <= 0}
+          error={showErrors && !limit}
           fullWidth
-          helperText={showErrors && limit <= 0 ? 'Please enter a valid amount.' : ''}
+          helperText={showErrors && !limit ? 'Please enter a valid amount.' : ''}
           id="create-tracking-form-spending-limit"
           label="Max spending limit"
           margin="dense"
@@ -117,10 +121,10 @@ const CreateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
           setLimit(0);
           onClose();
         }}>Cancel</Button>
-        <Button onClick={onCreate}>Create</Button>
+        <Button onClick={onUpdate}>Update</Button>
       </DialogActions>
     </Dialog >
   );
 };
 
-export default CreateTrackerForm;
+export default UpdateTrackerForm;

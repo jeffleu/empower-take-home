@@ -55,16 +55,16 @@ const RemoveTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
       <DialogTitle>Remove tracker</DialogTitle>
       <DialogContent>
         <DialogContentText sx={{ mb: '32px' }}>
-          Remove a spending limit tracker.
+          Select a category from the drop down below to remove a category tracker.
         </DialogContentText>
 
         <FormControl fullWidth error={!categoryToRemove && showErrors}>
           {/* Category select */}
-          <InputLabel id="create-tracking-form-category-label">Category</InputLabel>
+          <InputLabel id="remove-tracking-form-category-label">Category</InputLabel>
           <Select
             error={!categoryToRemove && showErrors}
-            labelId="create-tracking-form-category-label"
-            id="create-tracking-form-category-select"
+            labelId="remove-tracking-form-category-label"
+            id="remove-tracking-form-category-select"
             // @ts-expect-error
             value={categoryToRemove}
             label="Category"
@@ -76,7 +76,7 @@ const RemoveTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
             {categoryMenuItems.map(category => {
               return (
                 <MenuItem
-                  className="create-tracking-form-select-menu-item"
+                  className="form-select-menu-item"
                   key={category}
                   value={category}
                 >
