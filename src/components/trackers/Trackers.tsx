@@ -22,29 +22,38 @@ import './style.css';
 import { getTrackerData, getValidCategoryMenuItems, sortTrackerData } from '../../utils.ts';
 // Types
 import { Tracker } from '../../types.ts';
+import RemoveTrackerForm from './RemoveTrackerForm.tsx';
 
 const Trackers = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openCreateForm, setOpenCreateForm] = useState<boolean>(false);
+  const [openRemoveForm, setOpenRemoveForm] = useState<boolean>(false);
   const [trackers, setTrackers] = useState<Array<Tracker>>([]);
   const categoryMenuItems = getValidCategoryMenuItems(trackers);
 
-  const menuItems = [
-    {
-      menuItemText: 'Update',
-      onClick: () => { }
-    },
-    {
-      menuItemText: 'Remove',
-      onClick: () => { }
-    }
-  ];
+  const menuItems: Array<{
+    menuItemText: string;
+    onClick: () => void;
+  }> = [];
 
   if (categoryMenuItems.length) {
-    menuItems.unshift({
+    menuItems.push({
       menuItemText: 'Create',
       onClick: () => { setOpenCreateForm(true) }
     });
+  }
+
+  if (trackers.length) {
+    menuItems.push(
+      {
+        menuItemText: 'Update',
+        onClick: () => { }
+      },
+      {
+        menuItemText: 'Remove',
+        onClick: () => { setOpenRemoveForm(true) }
+      }
+    );
   }
 
   useEffect(() => {
@@ -98,6 +107,15 @@ const Trackers = () => {
           setOpenCreateForm(false);
         }}
         open={openCreateForm}
+        setTrackers={setTrackers}
+        trackers={trackers}
+      />
+
+      <RemoveTrackerForm
+        onClose={() => {
+          setOpenRemoveForm(false);
+        }}
+        open={openRemoveForm}
         setTrackers={setTrackers}
         trackers={trackers}
       />
