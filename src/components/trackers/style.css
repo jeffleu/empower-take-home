@@ -1,3 +1,7 @@
+.create-tracking-form-select-menu-item {
+  text-transform: capitalize;
+}
+
 .progress-bar {
   background-color: lightgray !important;
 }

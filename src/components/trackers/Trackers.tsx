@@ -1,60 +1,64 @@
-import React, {useEffect, useState} from 'react';
-import { Box, LinearProgress } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  LinearProgress,
+  TextField
+} from '@mui/material';
 // Components
 import AddButton from '../common/AddButton.tsx';
 import CategoryIcon from '../common/CategoryIcon.tsx';
+import CreateTrackerForm from './CreateTrackerForm.tsx';
+import Loading from '../common/Loading.tsx';
 import Row from '../common/Row.tsx';
 // CSS
 import './style.css';
+// Utils
+import { getTrackerData, getValidCategoryMenuItems, sortTrackerData } from '../../utils.ts';
+// Types
+import { Tracker } from '../../types.ts';
 
 const Trackers = () => {
-  const [trackers, setTrackers] = useState(
-    [
-      {
-        amount: 100,
-        category: 'groceries',
-        limit: 300,
-        percentage: 33,
-      },
-      {
-        amount: 250,
-        category: 'education',
-        limit: 1000,
-        percentage: 25,
-      },
-      {
-        amount: 500,
-        category: 'shopping',
-        limit: 1000,
-        percentage: 50
-      },
-      {
-        amount: 150,
-        category: 'games',
-        limit: 200,
-        percentage: 75
-      }
-    ]
-  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openCreateForm, setOpenCreateForm] = useState<boolean>(false);
+  const [trackers, setTrackers] = useState<Array<Tracker>>([]);
+  const categoryMenuItems = getValidCategoryMenuItems(trackers);
 
   const menuItems = [
     {
-      menuItemText: 'Create',
-      onClick: () => {}
-    },
-    {
       menuItemText: 'Update',
-      onClick: () => {}
+      onClick: () => { }
     },
     {
       menuItemText: 'Remove',
-      onClick: () => {}
+      onClick: () => { }
     }
   ];
 
-  useEffect(() => {
+  if (categoryMenuItems.length) {
+    menuItems.unshift({
+      menuItemText: 'Create',
+      onClick: () => { setOpenCreateForm(true) }
+    });
+  }
 
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const trackersData = getTrackerData();
+      setTrackers(trackersData);
+      setIsLoading(false);
+    }, 1000);
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="trackers-wrapper">
@@ -63,7 +67,7 @@ const Trackers = () => {
           Trackers
         </div>
 
-        <AddButton menuItems={menuItems}/>
+        <AddButton menuItems={menuItems} />
       </div>
 
       <div className="trackers-list">
@@ -74,7 +78,7 @@ const Trackers = () => {
                 <Row
                   amount={tracker.amount}
                   amountSecondary={`of $${tracker.limit}`}
-                  icon={<CategoryIcon category={tracker.category}/>}
+                  icon={<CategoryIcon category={tracker.category} />}
                   primaryText={tracker.category}
                   secondaryText={`${tracker.percentage}%`}
                 />
@@ -88,7 +92,16 @@ const Trackers = () => {
           <div>No trackers</div>
         )}
       </div>
-    </div>  
+
+      <CreateTrackerForm
+        onClose={() => {
+          setOpenCreateForm(false);
+        }}
+        open={openCreateForm}
+        setTrackers={setTrackers}
+        trackers={trackers}
+      />
+    </div>
   );
 };
 

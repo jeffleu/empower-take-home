@@ -12,6 +12,13 @@ export type Account = {
   transactions: Array<Transaction>;
 };
 
+export type Tracker = {
+  amount: number;
+  category: string;
+  limit: number;
+  percentage: number;
+}
+
 export type Transaction = {
   amount: number;
   category: string;

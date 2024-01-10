@@ -197,3 +197,30 @@ export const accountsTestData = {
     }
   ]
 };
+
+export const trackerTestData = [
+  {
+    amount: 100,
+    category: 'groceries',
+    limit: 300,
+    percentage: 33,
+  },
+  // {
+  //   amount: 250,
+  //   category: 'education',
+  //   limit: 1000,
+  //   percentage: 25,
+  // },
+  // {
+  //   amount: 500,
+  //   category: 'shopping',
+  //   limit: 1000,
+  //   percentage: 50
+  // },
+  // {
+  //   amount: 150,
+  //   category: 'games',
+  //   limit: 200,
+  //   percentage: 75
+  // }
+];

@@ -10,8 +10,7 @@
 }
 
 .icon-games {
-  background-color: #D1E3FF
-  ;
+  background-color: #D1E3FF;
 }
 
 .icon-groceries {
@@ -72,4 +71,5 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  text-align: right;
 }
