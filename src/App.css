@@ -1,18 +1,23 @@
 #main {
   display: flex;
   justify-content: center;
+  margin-top: 24px;
 }
 
 #main-content {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   height: 100vh;
   padding: 16px 30px;
   width: 32vw;
 }
 
 #navigation {
-  border: 1px solid black;
+  align-items: flex-start;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
   height: 100vh;
+  padding: 20px;
   width: 15vw;
 }
 
@@ -24,7 +29,7 @@
 }
 
 .App-header {
-  min-height: 100vh;   
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,19 +41,32 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .empower-logo {
-  height: 75px;
+  height: 65px;
+  margin-bottom: 24px;
 }
 
 .loading {
   margin-top: 10vh;
+}
+
+.nav-item {
+  align-items: center;
+  color: black;
+  display: flex;
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding: 12px 24px;
+  text-decoration: none;
+  width: 90%;
+}
+
+.nav-item:hover {
+  background-color: #E5E5E5;
+  padding: 12px 24px;
+  border-radius: 32px;
+}
+
+.nav-item-icon {
+  margin-right: 12px;
 }

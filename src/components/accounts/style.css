@@ -1,16 +1,19 @@
-.accounts-header,.transactions-header {
+.accounts-header,
+.transactions-header {
   display: flex;
   font-size: 28px;
   font-weight: 600;
   justify-content: space-between;
 }
 
-.accounts-header-text,.transactions-header-text {
+.accounts-header-text,
+.transactions-header-text {
   align-items: center;
   display: flex;
 }
 
-.accounts-list,.transactions-list {
+.accounts-list,
+.transactions-list {
   margin-top: 60px;
 }
 
@@ -18,4 +21,10 @@
   color: darkgray;
   display: flex;
   justify-content: flex-start;
+}
+
+.accounts-wrapper {
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px 0px, rgba(0, 0, 0, 0.16) 0px 0px 2px 0px;
+  border-radius: 16px;
+  padding: 16px 32px;
 }

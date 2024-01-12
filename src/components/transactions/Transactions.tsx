@@ -9,13 +9,15 @@ import Row from '../common/Row.tsx';
 import { formatCurrency, formatDate } from '../../utils.ts';
 // Types
 import type { Account, Transaction } from '../../types.ts';
+// CSS
+import './style.css';
 
 type PropsType = {
   account: Account;
   onClose: () => void;
 }
 
-const Transactions = ({account, onClose}: PropsType) => {
+const Transactions = ({ account, onClose }: PropsType) => {
   return (
     <div className="transactions-wrapper">
       <div className="transactions-header">
@@ -24,19 +26,19 @@ const Transactions = ({account, onClose}: PropsType) => {
         </div>
 
         <IconButton aria-label="close" onClick={onClose} size="large">
-          <Close fontSize="large"/>
+          <Close fontSize="large" />
         </IconButton>
       </div>
 
-      <div className="transaction-account-name">{account.official_name}</div>
+      <div className="transactions-account-name">{account.official_name}</div>
 
-      <div className="transaction-list">
+      <div className="transactions-list">
         {account.transactions.length ? (
           account.transactions.map(transaction => {
             return (
               <Row
                 amount={transaction.amount}
-                icon={<CategoryIcon category={transaction.category}/>}
+                icon={<CategoryIcon category={transaction.category} />}
                 key={transaction.id}
                 primaryText={transaction.merchant_name}
                 secondaryText={`${formatDate(transaction.date)}${transaction.pending ? ' • Pending' : ''}`}
@@ -47,7 +49,7 @@ const Transactions = ({account, onClose}: PropsType) => {
           <div>No transaction history.</div>
         )}
       </div>
-    </div>  
+    </div>
   );
 };
 
