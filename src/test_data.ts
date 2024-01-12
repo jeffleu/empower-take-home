@@ -1,5 +1,5 @@
 export const accountsTestData = {
-  total: 21209947.95,
+  total: 1500,
   accounts: [
     {
       account_id: '001',
@@ -58,7 +58,7 @@ export const accountsTestData = {
           pending: false,
         },
         {
-          amount: 12,
+          amount: 75,
           category: 'restaurant',
           date: '2020-01-04',
           datetime: '2020-01-04T15:10:09Z',
@@ -83,7 +83,7 @@ export const accountsTestData = {
       subtype: 'savings',
       transactions: [
         {
-          amount: 2000,
+          amount: 100,
           category: 'shopping',
           date: '2020-01-10',
           datetime: '2020-01-10T15:10:09Z',
@@ -94,7 +94,7 @@ export const accountsTestData = {
           pending: true,
         },
         {
-          amount: 5.99,
+          amount: 160,
           category: 'restaurant',
           date: '2020-01-09',
           datetime: '2020-01-09T15:10:09Z',
@@ -105,7 +105,7 @@ export const accountsTestData = {
           pending: false,
         },
         {
-          amount: 303.02,
+          amount: 250,
           category: 'shopping',
           date: '2020-01-07',
           datetime: '2020-01-07T15:10:09Z',

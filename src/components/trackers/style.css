@@ -1,19 +1,38 @@
+.category-amounts {
+  margin-top: -60px;
+}
+
 .form-select-menu-item {
   text-transform: capitalize;
+}
+
+.monthly-report-header-text {
+  margin-top: 12px;
+}
+
+.pie-chart-wrapper {
+  display: flex;
+  margin: 36px 0 0 75px;
 }
 
 .progress-bar {
   background-color: lightgray !important;
 }
 
-.trackers-header {
+.title {
+  text-align: left;
+}
+
+.trackers-header,
+.monthly-report-header {
   display: flex;
   font-size: 28px;
   font-weight: 600;
   justify-content: space-between;
 }
 
-.trackers-header-text {
+.trackers-header-text,
+.monthly-report-header-text {
   align-items: center;
   display: flex;
 }
@@ -28,9 +47,11 @@
   justify-content: flex-start;
 }
 
-.trackers-wrapper {
+.trackers-wrapper,
+.monthly-report-wrapper {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px 0px, rgba(0, 0, 0, 0.16) 0px 0px 2px 0px;
   border-radius: 16px;
+  margin-bottom: 24px;
   min-height: 30vh;
   padding: 16px 32px 32px 32px;
 }

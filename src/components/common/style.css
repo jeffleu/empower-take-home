@@ -40,6 +40,10 @@
   margin: 32px 0;
 }
 
+.row:last-child {
+  margin-bottom: 0;
+}
+
 .row-image {
   border-radius: 50%;
   height: 50px;

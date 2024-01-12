@@ -4,6 +4,7 @@ import { categoryList } from './components/trackers/constants.ts';
 // Types
 import { Tracker } from "./types.ts";
 
+// Calculates total amount spent per category
 export const calcAmountSpent = (accounts) => {
   const spent = {};
 
@@ -31,6 +32,20 @@ export const formatDate = (date: string) => {
 
 export const getAccountData = () => {
   return accountsTestData;
+};
+
+export const getPieChartData = () => {
+  const { accounts, total } = getAccountData();
+  const spentPerCategory = calcAmountSpent(accounts);
+  const pieChartData: Array<{ label: string; value: number; }> = [];
+
+  for (const category in spentPerCategory) {
+    const totalSpent = spentPerCategory[category];
+    const totalPercentage = Math.round((totalSpent / total) * 100);
+    pieChartData.push({ label: category, value: totalPercentage });
+  }
+
+  return { pieChartData, spentPerCategory };
 };
 
 export const getTrackerData = () => {

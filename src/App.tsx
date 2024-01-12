@@ -4,7 +4,7 @@ import { AccountBalanceOutlined, InsertChartOutlined } from '@mui/icons-material
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 // Components
 import Accounts from './components/accounts/Accounts.tsx';
-import Trackers from './components/trackers/Trackers.tsx';
+import Analysis from './components/trackers/Analysis.tsx';
 // CSS
 import './App.css';
 
@@ -17,14 +17,14 @@ const App = () => {
           {/* <Link to="/">My Accounts</Link> */}
           {/* <Link to="/trackers">Trackers</Link> */}
           <a className="nav-item" href="/"><AccountBalanceOutlined className="nav-item-icon" />All Accounts</a>
-          <a className="nav-item" href="/trackers"><InsertChartOutlined className="nav-item-icon" />Trackers</a>
+          <a className="nav-item" href="/analysis"><InsertChartOutlined className="nav-item-icon" />Analysis</a>
         </div>
         <div id="main-content">
           <Router basename="/">
             <Routes>
               <Route path="/">
                 <Route index element={<Accounts />} />
-                <Route path="/trackers" element={<Trackers />} />
+                <Route path="/analysis" element={<Analysis />} />
               </Route>
             </Routes>
           </Router>

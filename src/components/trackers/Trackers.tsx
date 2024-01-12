@@ -59,10 +59,6 @@ const Trackers = () => {
     }, 1000);
   }, []);
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
   return (
     <div className="trackers-wrapper">
       <div className="trackers-header">
