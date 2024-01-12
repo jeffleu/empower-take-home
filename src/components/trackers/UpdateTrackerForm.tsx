@@ -24,10 +24,11 @@ type PropsType = {
   onClose: () => void;
   open: boolean;
   setTrackers: (trackers: Array<Tracker>) => void;
+  spent: Record<string, number>;
   trackers: Array<Tracker>;
 }
 
-const UpdateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) => {
+const UpdateTrackerForm = ({ onClose, open, setTrackers, spent, trackers }: PropsType) => {
   const [category, setCategory] = useState<string>('');
   const [limit, setLimit] = useState<number>();
   const [showErrors, setShowErrors] = useState<boolean>(false);
@@ -40,12 +41,15 @@ const UpdateTrackerForm = ({ onClose, open, setTrackers, trackers }: PropsType) 
 
     if (hasErrors) return;
 
+    const amount = spent[category] ?? 0;
+    const percentage = Math.round((spent[category] / limit) * 100);
+
     const filteredTrackers = trackers.filter(tracker => tracker.category !== category);
     const tracker = {
-      amount: 0, // TODO: Update this with transaction data
+      amount,
       category,
       limit,
-      percentage: 0, // TODO: Calculate percentage by taking amount divide by limit
+      percentage: percentage >= 100 ? 100 : percentage,
     };
     setTrackers(sortTrackerData([...filteredTrackers, tracker]));
 

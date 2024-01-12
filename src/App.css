@@ -5,7 +5,6 @@
 }
 
 #main-content {
-  /* border: 1px solid black; */
   height: 100vh;
   padding: 16px 30px;
   width: 32vw;
@@ -13,7 +12,6 @@
 
 #navigation {
   align-items: flex-start;
-  /* border: 1px solid black; */
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -47,7 +45,7 @@
 }
 
 .loading {
-  margin-top: 10vh;
+  margin: 10vh 0;
 }
 
 .nav-item {

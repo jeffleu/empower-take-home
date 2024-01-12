@@ -1,19 +1,16 @@
 import React from 'react';
 // 3rd party libraries
 import { AccountBalanceOutlined, InsertChartOutlined } from '@mui/icons-material';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 // Components
 import Accounts from './components/accounts/Accounts.tsx';
 import Trackers from './components/trackers/Trackers.tsx';
 // CSS
 import './App.css';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 
 const App = () => {
   return (
     <div className="App">
-      <header>
-        {/* <img className='empower-logo' src="https://mma.prnewswire.com/media/1097404/Empower_Logo.jpg" /> */}
-      </header>
       <div id="main">
         <div id="navigation">
           <img className='empower-logo' src="https://mma.prnewswire.com/media/1097404/Empower_Logo.jpg" />

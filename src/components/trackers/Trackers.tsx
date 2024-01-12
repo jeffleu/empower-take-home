@@ -1,15 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  LinearProgress,
-  TextField
-} from '@mui/material';
+import { Box, LinearProgress } from '@mui/material';
 // Components
 import AddButton from '../common/AddButton.tsx';
 import CategoryIcon from '../common/CategoryIcon.tsx';
@@ -21,7 +11,7 @@ import UpdateTrackerForm from './UpdateTrackerForm.tsx';
 // CSS
 import './style.css';
 // Utils
-import { getTrackerData, getValidCategoryMenuItems, sortTrackerData } from '../../utils.ts';
+import { getTrackerData, getValidCategoryMenuItems } from '../../utils.ts';
 // Types
 import { Tracker } from '../../types.ts';
 
@@ -30,6 +20,7 @@ const Trackers = () => {
   const [openCreateForm, setOpenCreateForm] = useState<boolean>(false);
   const [openRemoveForm, setOpenRemoveForm] = useState<boolean>(false);
   const [openUpdateForm, setOpenUpdateForm] = useState<boolean>(false);
+  const [spent, setSpent] = useState<Record<string, number>>({});
   const [trackers, setTrackers] = useState<Array<Tracker>>([]);
   const categoryMenuItems = getValidCategoryMenuItems(trackers);
 
@@ -61,15 +52,16 @@ const Trackers = () => {
   useEffect(() => {
     setIsLoading(true);
     setTimeout(() => {
-      const trackersData = getTrackerData();
-      setTrackers(trackersData);
+      const { spent, trackerData } = getTrackerData();
+      setTrackers(trackerData);
+      setSpent(spent);
       setIsLoading(false);
     }, 1000);
   }, []);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="trackers-wrapper">
@@ -81,28 +73,32 @@ const Trackers = () => {
         <AddButton menuItems={menuItems} />
       </div>
 
-      <div className="trackers-list">
-        {trackers.length ? (
-          trackers.map(tracker => {
-            return (
-              <div key={tracker.category}>
-                <Row
-                  amount={tracker.amount}
-                  amountSecondary={`of $${tracker.limit}`}
-                  icon={<CategoryIcon category={tracker.category} />}
-                  primaryText={tracker.category}
-                  secondaryText={`${tracker.percentage}%`}
-                />
-                <Box sx={{ mt: '-12px', width: '100%' }}>
-                  <LinearProgress className="progress-bar" variant="determinate" value={tracker.percentage} />
-                </Box>
-              </div>
-            );
-          })
-        ) : (
-          <div>No trackers</div>
-        )}
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="trackers-list">
+          {trackers.length ? (
+            trackers.map(tracker => {
+              return (
+                <div key={tracker.category}>
+                  <Row
+                    amount={tracker.amount}
+                    amountSecondary={`of $${tracker.limit}`}
+                    icon={<CategoryIcon category={tracker.category} />}
+                    primaryText={tracker.category}
+                    secondaryText={`${tracker.percentage}%`}
+                  />
+                  <Box sx={{ mt: '-12px', width: '100%' }}>
+                    <LinearProgress className="progress-bar" variant="determinate" value={tracker.percentage} />
+                  </Box>
+                </div>
+              );
+            })
+          ) : (
+            <div>No trackers</div>
+          )}
+        </div>
+      )}
 
       <CreateTrackerForm
         onClose={() => {
@@ -110,6 +106,7 @@ const Trackers = () => {
         }}
         open={openCreateForm}
         setTrackers={setTrackers}
+        spent={spent}
         trackers={trackers}
       />
 
@@ -119,6 +116,7 @@ const Trackers = () => {
         }}
         open={openUpdateForm}
         setTrackers={setTrackers}
+        spent={spent}
         trackers={trackers}
       />
 

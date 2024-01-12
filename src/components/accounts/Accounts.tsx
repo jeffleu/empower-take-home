@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 // Components
 import AddButton from '../common/AddButton.tsx';
 import Loading from '../common/Loading.tsx';
 import Row from '../common/Row.tsx';
 import Transactions from '../transactions/Transactions.tsx';
 // Utils
-import { formatCurrency, getAccountData } from '../../utils.ts';
+import { calcAmountSpent, formatCurrency, getAccountData } from '../../utils.ts';
 // Constants
 import type { Account, Transaction } from '../../types.ts';
 // CSS
@@ -21,11 +21,11 @@ const Accounts = () => {
   const menuItems = [
     {
       menuItemText: 'Add account',
-      onClick: () => {}
+      onClick: () => { }
     },
     {
       menuItemText: 'Remove account',
-      onClick: () => {}
+      onClick: () => { }
     }
   ];
 
@@ -34,21 +34,21 @@ const Accounts = () => {
     setIsLoading(true);
     // setTimeout used here to mock API call
     setTimeout(() => {
-      const {total, accounts} = getAccountData();
+      const { total, accounts } = getAccountData();
+
+      const spent = calcAmountSpent(accounts);
+      console.log(spent);
+
       setTotal(total);
       setAccounts(accounts);
       setIsLoading(false);
     }, 1000);
   }, []);
 
-  if (isLoading) {
-    return <Loading/>;
-  }
-
   if (showTransactions && currentAccount) {
     return (
       <Transactions
-        onClose={() => {setShowTransactions(false)}}
+        onClose={() => { setShowTransactions(false) }}
         account={currentAccount}
       />);
   }
@@ -60,29 +60,35 @@ const Accounts = () => {
           All accounts
         </div>
 
-        <AddButton menuItems={menuItems}/>
+        <AddButton menuItems={menuItems} />
       </div>
 
-      <div className="accounts-total">Total: {formatCurrency(total)}</div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div>
+          <div className="accounts-total">Total: {formatCurrency(total)}</div>
 
-      <div className="accounts-list">
-        {accounts.map(account => {
-          return (
-            <Row
-              amount={account.balances.current || 0}
-              avatar={account.image_url}
-              key={account.account_id}
-              onClick={() => {
-                setCurrentAccount(account);
-                setShowTransactions(true);
-              }}
-              primaryText={account.name}
-              secondaryText={account.official_name}
-            />
-          );
-        })}
-      </div>
-    </div>  
+          <div className="accounts-list">
+            {accounts.map(account => {
+              return (
+                <Row
+                  amount={account.balances.current || 0}
+                  avatar={account.image_url}
+                  key={account.account_id}
+                  onClick={() => {
+                    setCurrentAccount(account);
+                    setShowTransactions(true);
+                  }}
+                  primaryText={account.name}
+                  secondaryText={account.official_name}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -26,5 +26,6 @@
 .accounts-wrapper {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 8px 0px, rgba(0, 0, 0, 0.16) 0px 0px 2px 0px;
   border-radius: 16px;
+  min-height: 30vh;
   padding: 16px 32px;
 }

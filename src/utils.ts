@@ -4,6 +4,20 @@ import { categoryList } from './components/trackers/constants.ts';
 // Types
 import { Tracker } from "./types.ts";
 
+export const calcAmountSpent = (accounts) => {
+  const spent = {};
+
+  accounts.forEach(account => {
+    const { transactions } = account;
+    transactions.forEach(transaction => {
+      if (!spent.hasOwnProperty(transaction.category)) spent[transaction.category] = 0;
+      spent[transaction.category] += transaction.amount;
+    });
+  });
+
+  return spent;
+};
+
 export const formatCurrency = (amount: number): string => {
   return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
@@ -20,7 +34,16 @@ export const getAccountData = () => {
 };
 
 export const getTrackerData = () => {
-  return sortTrackerData(trackerTestData);
+  const spent = calcAmountSpent(accountsTestData.accounts);
+  const trackerData = sortTrackerData(trackerTestData);
+  // Update tracker data with proper amount and percentage based on accounts data
+  trackerData.forEach(tracker => {
+    if (spent.hasOwnProperty(tracker.category)) {
+      tracker.amount = spent[tracker.category];
+      tracker.percentage = (spent[tracker.category] / tracker.limit) * 100;
+    }
+  });
+  return { spent, trackerData };
 };
 
 export const getValidCategoryMenuItems = (trackers: Array<Tracker>): Array<string> => {
